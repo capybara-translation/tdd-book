@@ -1,0 +1,6 @@
+Host HOST
+    Hostname HOSTNAME_OR_IP_ADDRESS
+    User USERNAME
+    Port PORT
+    IdentitiesOnly yes
+    IdentityFile PATH_TO_PRIVATE_KEY_FILE
