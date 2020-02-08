@@ -18,3 +18,11 @@ python manage.py test lists
 python manage.py test lists.tests.test_models
 python manage.py test lists.tests.test_views
 ```
+
+
+# Running devserver
+
+
+```
+python manage.py runserver
+```
