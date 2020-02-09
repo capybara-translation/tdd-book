@@ -14,9 +14,12 @@ python manage.py test functional_tests.test_list_item_validation
 # Run unit tests
 python manage.py test lists
 
-# Run a specific unit test
+# Run a specific unit test module
 python manage.py test lists.tests.test_models
 python manage.py test lists.tests.test_views
+
+# Run a specific unit test method
+python manage.py test functional_tests.test_list_item_validation.ItemValidationTest.test_cannot_add_duplicate_items
 ```
 
 
