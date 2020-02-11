@@ -6,6 +6,7 @@ cffi==1.13.2
 cryptography==2.8
 decorator==4.4.1
 Django==1.11.27
+django-environ==0.4.5
 entrypoints==0.3
 fabric==2.5.0
 flake8==3.7.9
