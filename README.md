@@ -29,3 +29,11 @@ python manage.py test functional_tests.test_list_item_validation.ItemValidationT
 ```
 python manage.py runserver
 ```
+
+
+# Migrations
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
