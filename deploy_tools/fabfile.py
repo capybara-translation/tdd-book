@@ -91,8 +91,8 @@ def _create_or_update_dotenv(c):
     print('Creating/Updating dotenv...')
     append(c, '.env', 'DJANGO_DEBUG_FALSE=y')
     append(c, '.env', f'SITENAME={c.host}')
-    append(c, '.env', f'EMAIL_USER=${APP_CONFIG["EMAIL_USER"]}')
-    append(c, '.env', f'EMAIL_PASSWORD=${APP_CONFIG["EMAIL_PASSWORD"]}')
+    append(c, '.env', f'EMAIL_USER={APP_CONFIG["EMAIL_USER"]}')
+    append(c, '.env', f'EMAIL_PASSWORD={APP_CONFIG["EMAIL_PASSWORD"]}')
     current_contents = c.run('cat .env', hide=True).stdout.strip()
     if 'DJANGO_SECRET_KEY' not in current_contents:
         new_secret = ''.join(random.SystemRandom().choices(
