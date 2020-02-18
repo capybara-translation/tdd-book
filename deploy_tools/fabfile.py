@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import random
+import json
 from invoke import task, run
 from patchwork.files import append, exists
 from fabric import Config, Connection
@@ -9,34 +10,54 @@ from fabric import Config, Connection
 REPO_URL = 'https://github.com/capybara-translation/tdd-book.git'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-config = None
+SSH_CONFIG = None
+APP_CONFIG = None
+
+
+def load_ssh_config(ssh_config_file):
+    ssh_config_file = os.path.basename(ssh_config_file)
+    ssh_config_path = os.path.join(BASE_DIR, ssh_config_file)
+    return Config(
+        runtime_ssh_path=ssh_config_path
+    )
+
+
+def load_app_config(app_config_file):
+    app_config_file = os.path.basename(app_config_file)
+    app_config_path = os.path.join(BASE_DIR, app_config_file)
+    with open(app_config_path) as f:
+        return json.load(f)
 
 
 @task
-def staging(c, ssh_config_file):
-    global config
-    conf_file = os.path.basename(ssh_config_file)
-    ssh_path = os.path.join(BASE_DIR, conf_file)
-    config = Config(
-        runtime_ssh_path=ssh_path
-    )
+def staging(c, ssh_config_file, app_config_file):
+    global SSH_CONFIG
+    global APP_CONFIG
+    # Load ssh config
+    SSH_CONFIG = load_ssh_config(ssh_config_file)
+
+    # Load app config
+    APP_CONFIG = load_app_config(app_config_file)
+
     c.name = 'staging'
 
 
 @task
-def production(c, ssh_config_file):
-    global config
-    conf_file = os.path.basename(ssh_config_file)
-    ssh_path = os.path.join(BASE_DIR, conf_file)
-    config = Config(
-        runtime_ssh_path=ssh_path
-    )
+def production(c, ssh_config_file, app_config_file):
+    global SSH_CONFIG
+    global APP_CONFIG
+    # Load ssh config
+    SSH_CONFIG = load_ssh_config(ssh_config_file)
+
+    # Load app config
+    APP_CONFIG = load_app_config(app_config_file)
+
     c.name = 'production'
 
 
 @task
 def deploy(c):
-    with Connection(host=c.name, config=config) as c:
+    with Connection(host=c.name, config=SSH_CONFIG) as c:
         site_folder = f'/home/{c.user}/sites/{c.host}'
         c.run(f'mkdir -p {site_folder}')
         with c.cd(site_folder):
@@ -70,6 +91,8 @@ def _create_or_update_dotenv(c):
     print('Creating/Updating dotenv...')
     append(c, '.env', 'DJANGO_DEBUG_FALSE=y')
     append(c, '.env', f'SITENAME={c.host}')
+    append(c, '.env', f'EMAIL_USER=${APP_CONFIG["EMAIL_USER"]}')
+    append(c, '.env', f'EMAIL_PASSWORD=${APP_CONFIG["EMAIL_PASSWORD"]}')
     current_contents = c.run('cat .env', hide=True).stdout.strip()
     if 'DJANGO_SECRET_KEY' not in current_contents:
         new_secret = ''.join(random.SystemRandom().choices(

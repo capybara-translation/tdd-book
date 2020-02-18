@@ -5,6 +5,6 @@ Deploying a new site
 
 ```
 cd deploy_tools
-fab staging|production SSH_CONFIG_FILE deploy
+fab staging|production SSH_CONFIG_FILE APP_CONFIG_FILE deploy
 ```
 
