@@ -155,4 +155,5 @@ LOGGING = {
     'root': {'level': 'INFO'},
 }
 
-STG_SSH_CONFIG = os.path.join(BASE_DIR, os.environ.get('STG_SSH_CONFIG'))
+if 'STG_SSH_CONFIG' in os.environ:
+    STG_SSH_CONFIG = os.path.join(BASE_DIR, os.environ.get('STG_SSH_CONFIG'))
