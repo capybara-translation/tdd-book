@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lists',
     'accounts',
+    'functional_tests',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -153,3 +154,5 @@ LOGGING = {
     },
     'root': {'level': 'INFO'},
 }
+
+STG_SSH_CONFIG = os.path.join(BASE_DIR, os.environ.get('STG_SSH_CONFIG'))
