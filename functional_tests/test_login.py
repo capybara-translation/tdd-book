@@ -22,6 +22,9 @@ class LoginTest(FunctionalTest):
             self.assertEqual(email.subject, subject)
             return email.body
 
+        # Need to wait a little until the last email sent has been saved into
+        # inbox...
+        time.sleep(5)
         email_id = None
         start = time.time()
         inbox = poplib.POP3_SSL('pop.gmail.com')
@@ -74,7 +77,6 @@ class LoginTest(FunctionalTest):
         self.assertIn(self.live_server_url, url)
 
         # She clicks it
-        print(url)
         self.browser.get(url)
 
         # She is logged in!
