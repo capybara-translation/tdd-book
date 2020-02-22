@@ -74,6 +74,7 @@ class LoginTest(FunctionalTest):
         self.assertIn(self.live_server_url, url)
 
         # She clicks it
+        print(url)
         self.browser.get(url)
 
         # She is logged in!
