@@ -2,14 +2,11 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.conf import settings
 from accounts.authentication import PasswordlessAuthenticationBackend
 
 from accounts.models import Token
 
 User = get_user_model()
-
-TEST_EMAIL = settings.EMAIL_TEST_TO
 
 
 class AuthenticationTest(TestCase):

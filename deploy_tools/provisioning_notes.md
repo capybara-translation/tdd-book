@@ -73,3 +73,30 @@ Assume we have a user account at /home/username
         ├-- .env
         ├-- db.sqlite3
         └── etc
+
+
+## Provisioning a CI server
+
+```
+# install java11
+sudo apt install openjdk-11-jdk
+
+# install jenkins
+wget --no-check-certificate -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+
+sudo apt install python3-venv
+sudo apt install firefox xvfb
+sudo apt install build-essential libssl-dev libffi-dev
+
+wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+tar -xvzf geckodriver-v0.26.0-linux64.tar.gz
+sudo mv geckodriver /usr/local/bin
+geckodriver --version
+geckodriver 0.26.0 (e9783a644016 2019-10-10 13:38 +0000)
+
+```
