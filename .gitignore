@@ -9,3 +9,4 @@ deploy_tools/*.ssh_config
 !deploy_tools/template.ssh_config
 deploy_tools/*.app_config
 !deploy_tools/template.app_config
+functional_tests/screendumps
