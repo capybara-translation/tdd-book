@@ -3,7 +3,7 @@ autopep8==1.5
 backcall==0.1.0
 bcrypt==3.1.7
 cffi==1.13.2
-cryptography==2.8
+cryptography==3.2
 decorator==4.4.1
 Django==1.11.27
 django-environ==0.4.5
